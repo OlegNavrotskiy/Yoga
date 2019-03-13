@@ -1,0 +1,10 @@
+.container {
+  width: 1024px;
+  margin: auto;
+}
+.timer {
+  font-size: 50px;
+  text-align: center;
+  color: red;
+  padding: 15px;
+}
