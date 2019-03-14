@@ -114,6 +114,54 @@ let overlay = document.querySelector('.overlay'),
 modalWindow(more);
 modalWindow(tabsBtn);
     
+//Якорь
 
+let aboutBtn = document.querySelector('.menu-about'),
+    photoBtn = document.querySelector('.menu-photo'),
+    priceBtn = document.querySelector('.menu-price'),
+    contactsBtn = document.querySelector('.menu-contacts');
+
+aboutBtn.onclick = function() {
+  animate(function(timePassed) {
+    let k = timePassed / (200 / 650);
+    window.scroll(0, k);
+
+  }, 200);
+};
+photoBtn.onclick = function() {
+  animate(function(timePassed) {
+    let k = timePassed / (500 / 1907);
+    window.scroll(0, k);
+
+  }, 500);
+};
+priceBtn.onclick = function() {
+  animate(function(timePassed) {
+    let k = timePassed / (400 / 2409);
+    window.scroll(0, k);
+
+  }, 760);
+};
+contactsBtn.onclick = function() {
+  animate(function(timePassed) {
+    let k = timePassed / (400 / 3003);
+    window.scroll(0, k);
+
+  }, 700);
+};
+
+function animate(draw, duration) {
+  let start = performance.now();
+  requestAnimationFrame(function animate(time) {
+    let timePassed = time - start;
+    if (timePassed > duration) {
+      timePassed = duration;
+    }
+    draw(timePassed);
+    if (timePassed < duration) {
+      requestAnimationFrame(animate);
+    }
+  });
+}
 
 }); //конец DOMContentLoaded
