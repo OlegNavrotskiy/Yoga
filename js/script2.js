@@ -14,3 +14,14 @@ let clock = setTimeout(function timerRun() {
       timer.innerHTML = twoLetter(h) + ":" + twoLetter(m) + ":" + twoLetter(s);
       setTimeout(timerRun, 1000);
   });
+
+//function showUser
+
+
+let age = document.getElementById('age');
+ 
+function showUser(surname, name) {
+  alert("Пользователь " + surname + " " + name + ", его возраст " + this.value);
+}
+
+showUser.call(age, 'Иванов', 'Иван');
