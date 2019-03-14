@@ -25,3 +25,7 @@ function showUser(surname, name) {
 }
 
 showUser.call(age, 'Иванов', 'Иван');
+
+age.onchange = function() {
+  showUser.call(age, 'Иванов', 'Иван');
+};
