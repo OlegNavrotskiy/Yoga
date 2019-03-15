@@ -93,7 +93,7 @@ setClock('timer', deadline);
 let more = document.querySelector('.more'),
     tabsBtn = document.querySelector('.description-btn');
 
-function modalWindow(btn) {
+/* function modalWindow(btn) {
 
 let overlay = document.querySelector('.overlay'),
     close = document.querySelector('.popup-close');
@@ -112,56 +112,65 @@ let overlay = document.querySelector('.overlay'),
 
 }
 modalWindow(more);
-modalWindow(tabsBtn);
-    
+modalWindow(tabsBtn); */
+
+// Modal JS
+function modalWindowJs(btn) {
+  let overlay = document.querySelector('.overlay'),
+      close = document.querySelector('.popup-close');
+
+  btn.addEventListener('click', function() {
+    overlay.classList.remove('fade');
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  });
+
+  close.addEventListener('click', function() {
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  });
+
+}
+modalWindowJs(more);
+modalWindowJs(tabsBtn);
+
+
 //Якорь
 
-let aboutBtn = document.querySelector('.menu-about'),
-    photoBtn = document.querySelector('.menu-photo'),
-    priceBtn = document.querySelector('.menu-price'),
-    contactsBtn = document.querySelector('.menu-contacts');
-
-aboutBtn.onclick = function() {
-  animate(function(timePassed) {
-    let k = timePassed / (200 / 650);
-    window.scroll(0, k);
-
-  }, 200);
-};
-photoBtn.onclick = function() {
-  animate(function(timePassed) {
-    let k = timePassed / (500 / 1907);
-    window.scroll(0, k);
-
-  }, 500);
-};
-priceBtn.onclick = function() {
-  animate(function(timePassed) {
-    let k = timePassed / (400 / 2409);
-    window.scroll(0, k);
-
-  }, 760);
-};
-contactsBtn.onclick = function() {
-  animate(function(timePassed) {
-    let k = timePassed / (400 / 3003);
-    window.scroll(0, k);
-
-  }, 700);
-};
-
-function animate(draw, duration) {
-  let start = performance.now();
-  requestAnimationFrame(function animate(time) {
-    let timePassed = time - start;
-    if (timePassed > duration) {
-      timePassed = duration;
-    }
-    draw(timePassed);
-    if (timePassed < duration) {
-      requestAnimationFrame(animate);
-    }
-  });
+function anim(duration) {
+  let temp;
+  return function(sel) {
+      cancelAnimationFrame(temp);
+      let start = performance.now();
+      let from = window.pageYOffset || document.documentElement.scrollTop,
+      to = document.querySelector(sel).getBoundingClientRect().top;
+      requestAnimationFrame(function step(timestamp) {
+        let progress = (timestamp - start) / duration;
+          1 <= progress && (progress = 1);
+          window.scrollTo(0, from + to * progress | 0);
+          1 > progress && (temp = requestAnimationFrame(step));
+      });
+  };
 }
+
+let scrollMenu = anim(1000);
+
+let aboutBtn = document.querySelector('.menu-about'),
+    productsBtn = document.querySelector('.menu-photo'),
+    priceBtn = document.querySelector('.menu-price'),
+    pontactsBtn = document.querySelector('.menu-contacts');
+
+    aboutBtn.addEventListener('click', function() {
+      scrollMenu('#about');
+    });
+    productsBtn.addEventListener('click', function() {
+      scrollMenu('#photo');
+    });
+    priceBtn.addEventListener('click', function() {
+      scrollMenu('#price');
+    });
+    pontactsBtn.addEventListener('click', function() {
+      scrollMenu('#contacts');
+    });
 
 }); //конец DOMContentLoaded
