@@ -93,7 +93,7 @@ setClock('timer', deadline);
 let more = document.querySelector('.more'),
     tabsBtn = document.querySelector('.description-btn');
 
-/* function modalWindow(btn) {
+function modalWindow(btn) {
 
 let overlay = document.querySelector('.overlay'),
     close = document.querySelector('.popup-close');
@@ -112,10 +112,10 @@ let overlay = document.querySelector('.overlay'),
 
 }
 modalWindow(more);
-modalWindow(tabsBtn); */
+modalWindow(tabsBtn);
 
 // Modal JS
-function modalWindowJs(btn) {
+/* function modalWindowJs(btn) {
   let overlay = document.querySelector('.overlay'),
       close = document.querySelector('.popup-close');
 
@@ -132,7 +132,7 @@ function modalWindowJs(btn) {
 
 }
 modalWindowJs(more);
-modalWindowJs(tabsBtn);
+modalWindowJs(tabsBtn); */
 
 
 //Якорь
