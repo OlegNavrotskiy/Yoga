@@ -139,37 +139,40 @@ window.addEventListener('DOMContentLoaded', () => {
   function anim(duration) {
     let temp;
     return sel => {
-        cancelAnimationFrame(temp);
-        let start = performance.now();
-        let from = window.pageYOffset || document.documentElement.scrollTop,
+      cancelAnimationFrame(temp);
+      let start = performance.now();
+      let from = window.pageYOffset || document.documentElement.scrollTop,
         to = document.querySelector(sel).getBoundingClientRect().top;
-        requestAnimationFrame(function step(timestamp) {
-          let progress = (timestamp - start) / duration;
-            1 <= progress && (progress = 1);
-            window.scrollTo(0, from + to * progress | 0);
-            1 > progress && (temp = requestAnimationFrame(step));
-        });
+      requestAnimationFrame(function step(timestamp) {
+        let progress = (timestamp - start) / duration;
+        1 <= progress && (progress = 1);
+        window.scrollTo(0, from + to * progress | 0);
+        1 > progress && (temp = requestAnimationFrame(step));
+      });
     };
   }
 
   let scrollMenu = anim(1000);
 
-  let aboutBtn = document.querySelector('.menu-about'),
-      productsBtn = document.querySelector('.menu-photo'),
-      priceBtn = document.querySelector('.menu-price'),
-      pontactsBtn = document.querySelector('.menu-contacts');
+  let li = document.querySelectorAll('li');
 
-  aboutBtn.addEventListener('click', () => {
-    scrollMenu('#about');
+  li.forEach((item, i) => {
+    item.addEventListener('click', () => {
+      switch (i) {
+        case 0:
+          scrollMenu('#about');
+          break;
+        case 1:
+          scrollMenu('#photo');
+          break;
+        case 2:
+          scrollMenu('#price');
+          break;
+        case 3:
+          scrollMenu('#contacts');
+          break;
+      }
+    });
   });
 
-  productsBtn.addEventListener('click', () => {
-    scrollMenu('#photo');
-  });
-  priceBtn.addEventListener('click', () => {
-    scrollMenu('#price');
-  });
-  pontactsBtn.addEventListener('click', () => {
-    scrollMenu('#contacts');
-  });
 }); //конец DOMContentLoaded
