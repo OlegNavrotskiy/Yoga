@@ -90,15 +90,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
   let more = document.querySelector('.more'),
-      tabsBtn = document.querySelector('.description-btn');
+    tabsBtn = document.querySelector('.description-btn'),
+    browser = getNameBrowser(),
+    mobile = false;
+
+  if (browser == 'EDGE' || browser == 'MSIE') {
+    modalWindow(more);
+    modalWindow(tabsBtn);
+  } else {
+    if (!mobile) {
+      modalWindowJs(more);
+      modalWindowJs(tabsBtn);
+    }
+  }
+  // Modal CSS
 
   function modalWindow(btn) {
 
-  let overlay = document.querySelector('.overlay'),
+    let overlay = document.querySelector('.overlay'),
       close = document.querySelector('.popup-close');
 
-
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', () => {
       overlay.style.display = 'block';
       this.classList.add('more-splash');
       document.body.style.overflow = 'hidden';
@@ -108,30 +120,66 @@ window.addEventListener('DOMContentLoaded', () => {
       more.classList.remove('more-splash');
       document.body.style.overflow = '';
     });
-
   }
-  modalWindow(more);
-  modalWindow(tabsBtn);
 
   // Modal JS
-  /* function modalWindowJs(btn) {
+  function modalWindowJs(btn) {
     let overlay = document.querySelector('.overlay'),
-        close = document.querySelector('.popup-close');
+      popup = document.querySelector('.popup'),
+      close = document.querySelector('.popup-close');
 
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', () => {
       overlay.classList.remove('fade');
       overlay.style.display = 'block';
       document.body.style.overflow = 'hidden';
+      animate(timePassed => {
+        popup.style.top = `${timePassed / 5}px`;
+      }, 600);
+
     });
 
-    close.addEventListener('click', function() {
+    close.addEventListener('click', () => {
       overlay.style.display = 'none';
       document.body.style.overflow = '';
     });
 
+    function animate(draw, duration) {
+      let start = performance.now();
+
+      requestAnimationFrame(function animate(time) {
+        let timePassed = time - start;
+        if (timePassed > duration) {
+          timePassed = duration;
+        }
+        draw(timePassed);
+        if (timePassed < duration) {
+          requestAnimationFrame(animate);
+        }
+
+      });
+    }
   }
-  modalWindowJs(more);
-  modalWindowJs(tabsBtn); */
+
+  // Проверка браузера
+  function getNameBrowser() {
+    const ua = navigator.userAgent;
+    if (ua.search(/EDGE/) > 0) {
+      return 'EDGE';
+    }
+    if (ua.search(/MSIE/) > 0) {
+      return 'MSIE';
+    }
+  }
+
+  //Проверка на моб.версию
+  function isMobile() {
+    if (navigator.userAgent.match(/Android|Mobile|IEMobile|Opera Mini|iPhone|iPad|iPod/i) == null) {
+      mobile = false;
+    } else {
+      mobile = true;
+    } return mobile;
+  }
+  isMobile();
 
 
   //Якорь
