@@ -156,22 +156,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let li = document.querySelectorAll('li');
 
-  li.forEach((item, i) => {
+  li.forEach((item) => {
     item.addEventListener('click', () => {
-      switch (i) {
-        case 0:
-          scrollMenu('#about');
-          break;
-        case 1:
-          scrollMenu('#photo');
-          break;
-        case 2:
-          scrollMenu('#price');
-          break;
-        case 3:
-          scrollMenu('#contacts');
-          break;
-      }
+      scrollMenu((item.firstChild.getAttribute('href')));
     });
   });
 
