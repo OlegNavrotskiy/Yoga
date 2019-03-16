@@ -101,7 +101,13 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!mobile) {
       modalWindowJs(more);
       modalWindowJs(tabsBtn);
+    } else {
+      if (mobile) {
+        modalMobileWindow(more);
+        modalMobileWindow(tabsBtn);
+      }
     }
+
   }
   // Modal CSS
 
@@ -121,6 +127,25 @@ window.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = '';
     });
   }
+
+  //Modal mobile
+  function modalMobileWindow(btn) {
+
+    let overlay = document.querySelector('.overlay'),
+      close = document.querySelector('.popup-close');
+
+    btn.addEventListener('click', () => {
+      overlay.classList.remove('fade');
+      overlay.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+
+    close.addEventListener('click', () => {
+      overlay.style.display = 'none';
+      document.body.style.overflow = '';
+    });
+  }
+
 
   // Modal JS
   function modalWindowJs(btn) {
