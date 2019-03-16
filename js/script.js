@@ -91,18 +91,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let more = document.querySelector('.more'),
     tabsBtn = document.querySelector('.description-btn'),
-    browser = getNameBrowser(),
-    mobile = false;
+    browser = getNameBrowser();
 
   if (browser == 'EDGE' || browser == 'MSIE') {
     modalWindow(more);
     modalWindow(tabsBtn);
   } else {
-    if (!mobile) {
+    if (!isMobile()) {
       modalWindowJs(more);
       modalWindowJs(tabsBtn);
     } else {
-      if (mobile) {
+      if (isMobile()) {
         modalMobileWindow(more);
         modalMobileWindow(tabsBtn);
       }
@@ -199,13 +198,19 @@ window.addEventListener('DOMContentLoaded', () => {
   //Проверка на моб.версию
   function isMobile() {
     if (navigator.userAgent.match(/Android|Mobile|IEMobile|Opera Mini|iPhone|iPad|iPod/i) == null) {
-      mobile = false;
-    } else {
-      mobile = true;
-    } return mobile;
+      return false;
+    }
+    else {
+      return true;
+    }
   }
-  isMobile();
 
+
+
+
+
+
+  
 
   //Якорь
 
