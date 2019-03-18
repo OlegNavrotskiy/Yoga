@@ -235,9 +235,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Form 
 let message = {
-  loading: "Загрузка...",
-  success: "Спасибо! Скоро мы с вами свяжемся!",
-  failure: "Что-то пошло не так"
+  loading: `<img src='../icons/loading.gif'> - загрузка`,
+  success: `<img src='../icons/success.png> - скоро мы с Вами свяжемся`,
+  failure: `<img src='../icons/failure.png'> - что-то пошло не так`
 };
 
 let mainForm = document.querySelector('.main-form'),
@@ -248,7 +248,7 @@ statusMessage.classList.add('status');
 
 function sendForm(form) {
   let  input = form.getElementsByTagName('input');
-  form.addEventListener('submit', function(event) {
+  form.addEventListener('submit', event => {
     event.preventDefault();
     form.appendChild(statusMessage);
   
@@ -259,7 +259,7 @@ function sendForm(form) {
     let formData = new FormData(form);
     request.send(formData);
   
-    request.addEventListener('readystatechange', function() {
+    request.addEventListener('readystatechange', () => {
       if (request.readyState < 4) {
         statusMessage.innerHTML = message.loading;
       } else if (request.readyState === 4 && request.status == 200) {
