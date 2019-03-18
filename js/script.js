@@ -236,7 +236,7 @@ window.addEventListener('DOMContentLoaded', () => {
 // Form 
 let message = {
   loading: `<img src='../icons/loading.gif'> - загрузка`,
-  success: `<img src='../icons/success.png> - скоро мы с Вами свяжемся`,
+  success: `<img src='../icons/success.png'> - скоро мы с Вами свяжемся`,
   failure: `<img src='../icons/failure.png'> - что-то пошло не так`
 };
 
@@ -248,16 +248,23 @@ statusMessage.classList.add('status');
 
 function sendForm(form) {
   let  input = form.getElementsByTagName('input');
-  form.addEventListener('submit', event => {
+    form.addEventListener('submit', event => {
     event.preventDefault();
     form.appendChild(statusMessage);
   
     let request = new XMLHttpRequest();
     request.open('POST', 'server.php');
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
   
     let formData = new FormData(form);
-    request.send(formData);
+
+    let obj = {};
+    formData.forEach(function(value, key) {
+      obj[key] = value;
+    });
+    let json = JSON.stringify(obj);
+
+    request.send(json);
   
     request.addEventListener('readystatechange', () => {
       if (request.readyState < 4) {
