@@ -235,9 +235,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Form 
 let message = {
-  loading: `<img src='../icons/loading.gif'> - загрузка`,
-  success: `<img src='../icons/success.png'> - скоро мы с Вами свяжемся`,
-  failure: `<img src='../icons/failure.png'> - что-то пошло не так`
+  loading: `<img src='icons/loading.gif'> - загрузка`,
+  success: `<img src='icons/success.png'> - скоро мы с Вами свяжемся`,
+  failure: `<img src='icons/failure.png'> - что-то пошло не так`
 };
 
 let mainForm = document.querySelector('.main-form'),
