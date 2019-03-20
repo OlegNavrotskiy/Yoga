@@ -329,10 +329,25 @@ function showSlides(n) {
   }
 
   slides.forEach((item) => item.style.display = 'none');
+  slides.forEach((item) => item.classList.remove('fade'));
   dots.forEach((item) => item.classList.remove('dot-active'));
 
   slides[slideIndex - 1].style.display = 'block';
+  slides[slideIndex - 1].children[0].style.opacity = 0;
   dots[slideIndex - 1].classList.add('dot-active');
+  animateSlider();
+}
+
+function animateSlider() {
+  let op = 0;
+  while (op <= 1) {
+      ((ar => {
+          setTimeout(() => {
+            slides[slideIndex - 1].children[0].style.opacity = ar;
+          }, 60 + op * 600);
+      })) (op);
+      op += 0.1;
+  }
 }
 
 function plusSlides(n) {
@@ -376,7 +391,8 @@ persons.addEventListener('change', function() {
   if (restDays.value == '' || persons.value == '') {
     totalValue.innerHTML = 0;
   } else {
-    totalValue.innerHTML = total;
+
+    animateTotal(total);
   }
 });
 
@@ -387,7 +403,7 @@ restDays.addEventListener('change', function() {
   if (persons.value == '' || restDays.value == '') {
     totalValue.innerHTML = 0;
   } else {
-    totalValue.innerHTML = total;
+    animateTotal(total);
   }
 });
 
@@ -395,8 +411,9 @@ place.addEventListener('change', function() {
   if (restDays.value == '' || persons.value == '') {
     totalValue.innerHTML = 0;
   } else {
-    let a = total;
-    totalValue.innerHTML = a * this.options[this.selectedIndex].value;
+    let a = total,
+        sum = a * this.options[this.selectedIndex].value;
+        animateTotal(sum);
   }
 });
 
@@ -409,5 +426,20 @@ const inputsCalc = document.querySelectorAll('.counter-block-input');
         };
     }
     [...inputsCalc].forEach(elem => onlyNumberCalc(elem));
+
+// Анимация для суммы
+
+function animateTotal(number) {
+  let step = 4000;
+  let start = Date.now();
+  let timer = setInterval(function () {
+    let timePassed = Date.now() - start;
+    totalValue.innerHTML = step = step + Math.floor(number/4000*3);
+    if (timePassed > 3000) {
+      clearInterval(timer);
+      totalValue.innerHTML = number;
+    }
+  });
+}
 
 }); //конец DOMContentLoaded
